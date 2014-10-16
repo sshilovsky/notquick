@@ -1,0 +1,40 @@
+Notquick - notmuch GUI client written in C++/Qt/QML.
+
+Notquick is free software, released under the GNU General Public License
+version 3 (or later).
+
+Status: work-in-progress
+
+Feature wishlist
+----------------
+* full libnotmuch support
+* webkit-based html message viewer
+* highly-customizable with qml and/or custom configs UI
+* vim-like keyboard control
+
+Notquick is not responsible for fetching, sending and bulk initial tagging
+mail. It uses external tools for that.
+
+Building
+--------
+
+    qmake && make
+
+Running
+-------
+$MAILDIR should contain a path to existing notmuch mail database. If not set,
+$HOME/mail is used.
+
+Contributing
+------------
+Looking for designers familiar with either QML or SVG.
+
+Contacts
+--------
+
+    Sergei Shilovsky <sshilovsky@gmail.com>
+
+References
+----------
+
+http://notmuchmail.org

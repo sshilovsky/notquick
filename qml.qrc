@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>ThreadItem.qml</file>
+        <file>Tag.qml</file>
+        <file>images/tag_close.png</file>
+        <file>images/tag_notmuch.png</file>
+    </qresource>
+</RCC>
