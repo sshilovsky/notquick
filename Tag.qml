@@ -30,7 +30,6 @@ Rectangle {
             height: 11
             radius: 3
             color: "transparent"
-            //border.color: "#582525"
 
             Image {
                 source: "qrc:/images/tag_close.png"
@@ -45,6 +44,7 @@ Rectangle {
                 hoverEnabled: true
                 onEntered: parent.color = "#580000"
                 onExited: parent.color = "transparent"
+
             }
         }
     }

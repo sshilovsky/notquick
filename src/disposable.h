@@ -4,6 +4,7 @@
 #include <QObject>
 
 class Disposable
+        // TODO !!! (?) backward property referencing the parent
 {
 public:
     virtual void dispose() = 0;

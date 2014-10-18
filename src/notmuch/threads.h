@@ -5,10 +5,12 @@
 #include <QHash>
 #include <QByteArray>
 #include <notmuch.h>
-#include "thread.h"
+//#include "thread.h"
 #include "disposable.h"
 
 namespace notmuch {
+
+class Thread;
 
 class Threads : public QAbstractListModel, protected Disposable
 {

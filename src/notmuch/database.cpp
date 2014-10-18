@@ -2,6 +2,7 @@
 #include <notmuch.h>
 #include <QProcessEnvironment>
 #include "log.h"
+#include "thread.h"
 
 namespace notmuch {
 
@@ -51,7 +52,7 @@ void Database::dispose()
     }
 }
 
-QObject *Database::query_threads(QString query_string)
+QObject *Database::queryThreads(QString query_string)
 {
     notmuch_query_t* libnotmuch_query = notmuch_query_create(libnotmuch_database, query_string.toLocal8Bit());
     if(!libnotmuch_query) {
@@ -72,14 +73,52 @@ QObject *Database::query_threads(QString query_string)
     return threads;
 }
 
+QObject *Database::findThread(QString thread_id)
+{
+    QString query_string("thread:"+thread_id);
+    notmuch_query_t* libnotmuch_query = notmuch_query_create(libnotmuch_database, query_string.toLocal8Bit());
+    if(!libnotmuch_query) {
+        LOG_NOTMUCH_INSUFFICIENT_MEMORY("notmuch_query_create");
+        return 0;
+    }
+
+    notmuch_threads_t* libnotmuch_threads = notmuch_query_search_threads(libnotmuch_query);
+    if(!libnotmuch_threads) {
+        LOG_NOTMUCH_XAPIAN_EXCEPTION("notmuch_query_search_threads");
+        notmuch_query_destroy(libnotmuch_query);
+        return 0;
+    }
+
+    if(!notmuch_threads_valid(libnotmuch_threads)) {
+        notmuch_query_destroy(libnotmuch_query);
+        return 0;
+    }
+
+    notmuch_thread_t* libnotmuch_thread = notmuch_threads_get(libnotmuch_threads);
+    if(!libnotmuch_thread) {
+        LOG_NOTMUCH_INSUFFICIENT_MEMORY("notmuch_threads_get");
+        notmuch_query_destroy(libnotmuch_query);
+        return 0;
+    }
+
+    Thread* thread = new Thread(libnotmuch_thread, this);
+    thread->dispose_libnotmuch_query = libnotmuch_query;
+    return thread;
+}
+
 DatabaseProxy::DatabaseProxy(Database *database)
     : database(database)
 {
 }
 
-QObject *DatabaseProxy::query_threads(QString query_string)
+QObject *DatabaseProxy::queryThreads(QString query_string)
 {
-    return database->query_threads(query_string);
+    return database->queryThreads(query_string);
+}
+
+QObject *DatabaseProxy::findThread(QString thread_id)
+{
+    return database->findThread(thread_id);
 }
 
 } // namespace notmuch

@@ -1,5 +1,6 @@
 #include "threads.h"
 #include "thread.h"
+#include "log.h"
 
 namespace notmuch {
 
@@ -10,6 +11,8 @@ Threads::Threads(QObject *parent)
 
 int Threads::rowCount(const QModelIndex &parent) const
 {
+    if(parent.isValid())
+        return 0;
     return threads.size();
 }
 
@@ -51,10 +54,15 @@ void Threads::loadAll()
         return;
     while(notmuch_threads_valid(libnotmuch_threads)) {
         notmuch_thread_t* libnotmuch_thread = notmuch_threads_get(libnotmuch_threads);
+        if(!libnotmuch_thread) {
+            LOG_NOTMUCH_INSUFFICIENT_MEMORY("notmuch_threads_get");
+            return;
+        }
         notmuch_threads_move_to_next(libnotmuch_threads);
 
         threads.append(new Thread(libnotmuch_thread, (QAbstractListModel*)this));
     }
+
 }
 
 Threads::Threads(notmuch_threads_t *libnotmuch_threads, QObject *parent)

@@ -1,43 +1,75 @@
-import QtQuick 2.3
-import QtQuick.Controls 1.2
+import QtQuick 2.0
 import Notmuch 1.0
-import QtQuick.Layouts 1.1
+import QtQuick.Controls 1.0
 
 ApplicationWindow {
+    visibility: "Maximized"
     visible: true
-    width: 600
-    height: 480
-    title: qsTr("Hello World")
+    title: qsTr("Notquick")
 
-    ColumnLayout {
-        anchors.fill: parent
-        anchors.margins: 50
+    Item {
+        id: tp
+        anchors {
+            top: parent.top
+            bottom: parent.bottom
+            left: parent.left
+        }
+        width: (parent.width - 5) / 2
 
-        RowLayout {
-            TextField {
-                id: queryText
-                text: "tag:important"
-                Layout.fillWidth: true
+        QueryInput {
+            id: qi
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+                margins: 5
             }
 
-            Button {
-                text: "Go"
-                onClicked: threadsList.model = NotmuchDatabase.query_threads(queryText.text)
+            queryString: "tag:important"
+
+            onRefresh: updateThreads()
+            Component.onCompleted: updateThreads()
+
+            function updateThreads() {
+                tv.model = 0
+                tv.model = NotmuchDatabase.queryThreads(queryString)
+                tv.updateMessages()
             }
         }
 
-        ListView {
-            //clip: true // TODO !
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            id: threadsList
+        ThreadView {
+            id: tv
             spacing: 2
-            model: NotmuchDatabase.query_threads("tag:important")
-            delegate: ThreadItem {
-                notmuch_thread: thread
+            anchors {
+                top: qi.bottom
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+                topMargin: 5
+                bottomMargin: 5
+            }
+
+            onActivated: updateMessages()
+
+            function updateMessages() {
+                mv.model = 0
+                mv.model = selectedThread.messages
             }
         }
-
     }
+
+    MessageView {
+        id: mv
+        spacing: 2
+        anchors {
+            left: tp.right
+            leftMargin: 5
+            top: parent.top
+            topMargin: 5
+            bottom: parent.bottom
+            bottomMargin: 5
+            right: parent.right
+        }
+    }
+
 }

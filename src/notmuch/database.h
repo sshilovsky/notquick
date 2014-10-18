@@ -20,7 +20,8 @@ public:
     virtual bool openReadonly(QString path = QString());
     virtual void dispose();
 
-    Q_INVOKABLE QObject *query_threads(QString query_string = "*");
+    Q_INVOKABLE QObject *queryThreads(QString query_string = "*");
+    Q_INVOKABLE QObject *findThread(QString thread_id);
 
 signals:
 
@@ -34,7 +35,8 @@ class DatabaseProxy : public QObject {
     Q_OBJECT
 public:
     DatabaseProxy(Database* database);
-    Q_INVOKABLE QObject *query_threads(QString query_string = "*");
+    Q_INVOKABLE QObject *queryThreads(QString query_string = "*");
+    Q_INVOKABLE QObject *findThread(QString thread_id);
 private:
     Database* database;
 };

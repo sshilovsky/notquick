@@ -1,21 +1,21 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-Rectangle {
+Item {
     id: root
-    color: "#90ffff"
-    width: parent.width
-    height: layout.height
-    property QtObject notmuch_thread
+    implicitHeight: layout.implicitHeight + anchors.topMargin + anchors.bottomMargin
+    //implicitWidth: layout.implicitWidth +anchors.leftMargin + anchors.rightMargin
 
     ColumnLayout {
         id: layout
-        spacing: 3
-        width: parent.width
+        spacing: 2
+        anchors.left: parent.left
+        anchors.right:  parent.right
+        anchors.verticalCenter: parent.verticalCenter
 
         Text {
             id: subject
-            text: notmuch_thread.subject
+            text: thread.subject
 
             anchors.left: parent.left
             anchors.right: parent.right
@@ -30,12 +30,12 @@ Rectangle {
 
             Text {
                 id: date
-                text: notmuch_thread.datetime
+                text: thread.datetime
             }
 
             Text {
                 id: authors
-                text: notmuch_thread.authors
+                text: thread.authors
 
                 Layout.fillWidth: true
                 elide: Text.ElideRight
@@ -43,13 +43,14 @@ Rectangle {
             }
 
             ListView {
+                //implicitWidth: 200
                 Layout.preferredWidth: (parent.width - authors.implicitWidth) * 0.5
                 Layout.fillWidth: true
                 height: 15
 
                 orientation: ListView.Horizontal
                 spacing: 3
-                model: notmuch_thread.tags
+                model: thread.tags
                 delegate: Tag {
                     text: name
                 }

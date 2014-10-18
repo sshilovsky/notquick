@@ -9,7 +9,9 @@ SOURCES += \
     src/notmuch/database.cpp \
     src/main.cpp \
     src/disposable.cpp \
-    src/notmuch/tags.cpp
+    src/notmuch/tags.cpp \
+    src/notmuch/messages.cpp \
+    src/notmuch/message.cpp
 
 RESOURCES += qml.qrc
 
@@ -19,8 +21,12 @@ HEADERS += \
     src/notmuch/database.h \
     src/log.h \
     src/disposable.h \
-    src/notmuch/tags.h
+    src/notmuch/tags.h \
+    src/notmuch/messages.h \
+    src/notmuch/message.h
 
 INCLUDEPATH += src/
 
 LIBS += -lnotmuch
+
+OTHER_FILES +=

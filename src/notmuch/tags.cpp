@@ -33,6 +33,7 @@ Tags::Tags(notmuch_tags_t *libnotmuch_tags, QObject *parent)
             notmuch_tags_move_to_next(libnotmuch_tags);
         }
     }
+    // TODO notmuch_tags_destroy (?)
 }
 
 } // namespace notmuch

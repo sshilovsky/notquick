@@ -1,3 +1,5 @@
+// TODO license note into all sources
+
 #include <QtQml>
 #include <QApplication>
 #include <QQmlApplicationEngine>
@@ -20,7 +22,7 @@ int main(int argc, char *argv[])
 {
     notmuch::Database db;
     db.openReadonly();
-    proxy = new notmuch::DatabaseProxy(&db);
+    proxy = new notmuch::DatabaseProxy(&db); // owned by QML, so GC-ed later
 
     qmlRegisterSingletonType<notmuch::Database>("Notmuch", 1, 0, "NotmuchDatabase", databaseSingleton);
     //qmlRegisterType<notmuch::Threads>("Notmuch", 1, 0, "NotmuchThreads");
@@ -30,8 +32,10 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    engine.load(QUrl(QStringLiteral("qrc:/ThreadItem.qml")));
+    //engine.load(QUrl(QStringLiteral("qrc:/LongView.qml")));
+    /*engine.load(QUrl(QStringLiteral("qrc:/SearchView.qml")));
     engine.load(QUrl(QStringLiteral("qrc:/Tag.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/ThreadItem.qml")));*/
 
     return app.exec();
 }

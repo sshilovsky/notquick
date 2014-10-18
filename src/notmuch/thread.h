@@ -6,6 +6,7 @@
 #include <notmuch.h>
 #include "disposable.h"
 #include "tags.h"
+#include "messages.h"
 
 namespace notmuch {
 
@@ -18,6 +19,7 @@ private:
     QString authors() const;
     QDateTime datetime() const;
     Tags* tags();
+    Messages *messages();
 public:
     explicit Thread(QObject *parent = 0);
     virtual void dispose();
@@ -28,14 +30,15 @@ public:
     Q_PROPERTY(QDateTime datetime READ datetime CONSTANT)
     Q_PROPERTY(QObject* tags READ tags CONSTANT)
 
+    Q_PROPERTY(QObject* messages READ messages CONSTANT)
 
-signals:
-
-public slots:
 
 private:
     Thread(notmuch_thread_t* libnotmuch_thread, QObject *parent);
     notmuch_thread_t* libnotmuch_thread;
+    notmuch_query_t* dispose_libnotmuch_query;
+    Messages *m_messages;
+    friend class Database;
     friend class Threads;
 };
 
