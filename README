@@ -1,9 +1,10 @@
 Notquick - notmuch GUI client written in C++/Qt/QML.
 
-Notquick is free software, released under the GNU General Public License
-version 3 (or later).
+Notquick is free software, released under the GNU General Public License version
+3 (or later). There are few exceptions from the above, see COPYING for details.
 
-Status: work-in-progress. Few useful things are implemented, the repo is actually my backup atm.
+Status: work-in-progress. Few useful things are implemented, the repo is
+actually my backup atm.
 
 Feature wishlist
 ----------------
@@ -12,8 +13,8 @@ Feature wishlist
 * highly-customizable with qml and/or custom configs UI
 * vim-like keyboard control
 
-Notquick is not responsible for fetching, sending and bulk initial tagging
-mail. It uses external tools for that.
+Notquick is not responsible for fetching, sending and bulk initial tagging mail.
+It uses external tools for that.
 
 Building
 --------

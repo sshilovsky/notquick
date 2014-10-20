@@ -58,7 +58,7 @@ ApplicationWindow {
         }
     }
 
-    MessageView {
+    MessagesView {
         id: mv
         spacing: 2
         anchors {
@@ -66,9 +66,20 @@ ApplicationWindow {
             leftMargin: 5
             top: parent.top
             topMargin: 5
-            bottom: parent.bottom
-            bottomMargin: 5
             right: parent.right
+        }
+        height: (parent.height - 15) / 2
+    }
+
+    MessageViewer {
+        id: messageViewer
+        message: mv.selectedThread // selectedMessage actually
+        anchors {
+            top: mv.bottom
+            left: tp.right
+            right: parent.right
+            bottom: parent.bottom
+            margins: 5
         }
     }
 

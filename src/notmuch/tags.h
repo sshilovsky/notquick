@@ -22,6 +22,7 @@ private:
 
     friend class Database;
     friend class Thread;
+    friend class Message;
 };
 
 } // namespace notmuch

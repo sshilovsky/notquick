@@ -38,6 +38,7 @@ private:
     notmuch_thread_t* libnotmuch_thread;
     notmuch_query_t* dispose_libnotmuch_query;
     Messages *m_messages;
+    Tags* m_tags;
     friend class Database;
     friend class Threads;
 };

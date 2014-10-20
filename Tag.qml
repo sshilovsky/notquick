@@ -15,14 +15,18 @@ Rectangle {
         spacing: 2
 
         Image {
-            source: root.text.substring(0, 9) == "notmuch::" ? "qrc:/images/tag_notmuch.png" : ""
+            source: root.text == "signed" ? "qrc:/images/typicons/tag_signed.png"
+                  : root.text.substring(0, 9) == "notmuch::" ? "qrc:/images/tag_notmuch.png"
+                  : ""
         }
 
         Text {
             id: textItem
             color: "white"
             font.pixelSize: 10
-            text: root.text.substring(0, 9) == "notmuch::" ? root.text.substring(9) : root.text
+            text: root.text == "signed" ? ""
+                : root.text.substring(0, 9) == "notmuch::" ? root.text.substring(9)
+                : root.text
         }
 
         Rectangle {
@@ -44,6 +48,8 @@ Rectangle {
                 hoverEnabled: true
                 onEntered: parent.color = "#580000"
                 onExited: parent.color = "transparent"
+
+                onClicked: console.log("hello")
 
             }
         }

@@ -10,6 +10,8 @@ Item {
     ListView {
         anchors.fill: parent
 
+        // TODO ! onContentYChanged:
+
         id: threadsList
         model: root.model
         delegate: Rectangle {

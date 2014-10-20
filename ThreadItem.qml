@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
 Item {
+    z: parent.z + 1
     id: root
     implicitHeight: layout.implicitHeight + anchors.topMargin + anchors.bottomMargin
     //implicitWidth: layout.implicitWidth +anchors.leftMargin + anchors.rightMargin
@@ -10,7 +11,7 @@ Item {
         id: layout
         spacing: 2
         anchors.left: parent.left
-        anchors.right:  parent.right
+        anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
 
         Text {
@@ -42,19 +43,11 @@ Item {
                 Layout.maximumWidth: implicitWidth
             }
 
-            ListView {
-                //implicitWidth: 200
-                Layout.preferredWidth: (parent.width - authors.implicitWidth) * 0.5
+            TagsView {
+                tags: thread.tags
                 Layout.fillWidth: true
-                height: 15
-
-                orientation: ListView.Horizontal
-                spacing: 3
-                model: thread.tags
-                delegate: Tag {
-                    text: name
-                }
             }
+
         }
     }
 }

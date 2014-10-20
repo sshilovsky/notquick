@@ -30,7 +30,8 @@ Thread::Thread(notmuch_thread_t *libnotmuch_thread, QObject *parent)
     :QObject(parent),
       libnotmuch_thread(libnotmuch_thread),
       dispose_libnotmuch_query(0),
-      m_messages(0)
+      m_messages(0),
+      m_tags(0)
 {
 
 }
@@ -58,12 +59,14 @@ QDateTime Thread::datetime() const
 
 Tags *Thread::tags()
 {
-    if(!libnotmuch_thread)
-        return 0;
-    notmuch_tags_t* libnotmuch_tags = notmuch_thread_get_tags(libnotmuch_thread);
-    Tags* tags = new Tags(libnotmuch_tags, this);
-    // tags.loadAll()
-    return tags;
+    if(!m_tags) {
+        if(!libnotmuch_thread)
+            return 0;
+        notmuch_tags_t* libnotmuch_tags = notmuch_thread_get_tags(libnotmuch_thread);
+        m_tags = new Tags(libnotmuch_tags, this);
+        // m_tags.loadAll()
+    }
+    return m_tags;
 }
 
 Messages *Thread::messages()

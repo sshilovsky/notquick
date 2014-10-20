@@ -32,10 +32,6 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    //engine.load(QUrl(QStringLiteral("qrc:/LongView.qml")));
-    /*engine.load(QUrl(QStringLiteral("qrc:/SearchView.qml")));
-    engine.load(QUrl(QStringLiteral("qrc:/Tag.qml")));
-    engine.load(QUrl(QStringLiteral("qrc:/ThreadItem.qml")));*/
 
     return app.exec();
 }
