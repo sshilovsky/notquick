@@ -69,7 +69,7 @@ QObject *Database::queryThreads(QString query_string)
 
     Threads* threads = new Threads(libnotmuch_threads, this);
     threads->dispose_libnotmuch_query = libnotmuch_query;
-    threads->loadAll();
+    threads->loadMore();
     return threads;
 }
 

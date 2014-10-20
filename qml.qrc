@@ -5,7 +5,7 @@
         <file>Tag.qml</file>
         <file>images/tag_close.png</file>
         <file>images/tag_notmuch.png</file>
-        <file>ThreadView.qml</file>
+        <file>ThreadsView.qml</file>
         <file>QueryInput.qml</file>
         <file>MessagesView.qml</file>
         <file>MessageItem.qml</file>

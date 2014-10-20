@@ -40,18 +40,19 @@ QString Thread::subject() const
 {
     if(!libnotmuch_thread)
         return QString();
-    return QString(notmuch_thread_get_subject(libnotmuch_thread));
+    return QString(notmuch_thread_get_subject(libnotmuch_thread)).simplified();
 }
 
 QString Thread::authors() const
 {
     if(!libnotmuch_thread)
         return QString();
-    return QString(notmuch_thread_get_authors(libnotmuch_thread));
+    return QString(notmuch_thread_get_authors(libnotmuch_thread)).simplified();
 }
 
 QDateTime Thread::datetime() const
 {
+    // TODO dont forget about simplifed
     if(!libnotmuch_thread)
         return QDateTime();
     return QDateTime(QDate(2014,12,31), QTime(20,10));

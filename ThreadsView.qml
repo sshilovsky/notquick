@@ -8,9 +8,11 @@ Item {
     id: root
 
     ListView {
-        anchors.fill: parent
+        onAtYEndChanged: if (atYEnd) {
+                             model.loadMore()
+                         }
 
-        // TODO ! onContentYChanged:
+        anchors.fill: parent
 
         id: threadsList
         model: root.model

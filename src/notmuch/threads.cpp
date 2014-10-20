@@ -46,23 +46,31 @@ void Threads::dispose()
     }
 }
 
-void Threads::loadAll()
+void Threads::loadMore(int more)
 {
-    // TODO beginInsert, notifications etc
-    // TODO loadMore()
-    if(!libnotmuch_threads)
-        return;
-    while(notmuch_threads_valid(libnotmuch_threads)) {
+    int old_size = threads.size();
+
+    int count = 0;
+    while(notmuch_threads_valid(libnotmuch_threads) &&
+          (more == -1 || count++ < more)) {
         notmuch_thread_t* libnotmuch_thread = notmuch_threads_get(libnotmuch_threads);
         if(!libnotmuch_thread) {
             LOG_NOTMUCH_INSUFFICIENT_MEMORY("notmuch_threads_get");
-            return;
+            goto finish;
         }
         notmuch_threads_move_to_next(libnotmuch_threads);
 
-        threads.append(new Thread(libnotmuch_thread, (QAbstractListModel*)this));
-    }
+        threads.append(new Thread(libnotmuch_thread, this));
 
+    }
+finish:
+    beginInsertRows(QModelIndex(), old_size, threads.size() - 1);
+    endInsertRows();
+}
+
+void Threads::loadAll()
+{
+    loadMore(-1);
 }
 
 Threads::Threads(notmuch_threads_t *libnotmuch_threads, QObject *parent)

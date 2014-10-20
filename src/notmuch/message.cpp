@@ -4,19 +4,21 @@
 
 namespace notmuch {
 
-QString Message::subject() const
+QString Message::header(QString name) const
 {
-    // TODO drop extra whitespaces
     if(!libnotmuch_message)
         return QString();
-    return QString(notmuch_message_get_header(libnotmuch_message, "subject"));
+    return QString(notmuch_message_get_header(libnotmuch_message, name.toLocal8Bit().data())).simplified();
+}
+
+QString Message::subject() const
+{
+    return header("subject");
 }
 
 QString Message::from() const
 {
-    if(!libnotmuch_message)
-        return QString();
-    return QString(notmuch_message_get_header(libnotmuch_message, "from"));
+    return header("from");
 }
 
 QString Message::filename() const

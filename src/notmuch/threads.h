@@ -30,6 +30,7 @@ public:
 signals:
 
 public slots:
+    void loadMore(int more = 50);
     void loadAll();
 
 private:

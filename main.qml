@@ -37,7 +37,7 @@ ApplicationWindow {
             }
         }
 
-        ThreadView {
+        ThreadsView {
             id: tv
             spacing: 2
             anchors {

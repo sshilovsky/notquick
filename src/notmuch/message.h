@@ -32,6 +32,8 @@ public:
     Q_PROPERTY(QString id READ id CONSTANT)
     Q_PROPERTY(QObject* tags READ tags CONSTANT)
 
+    Q_INVOKABLE QString header(QString name) const;
+
 private:
     Message(notmuch_message_t* libnotmuch_message, QObject* parent);
     notmuch_message_t* libnotmuch_message;
