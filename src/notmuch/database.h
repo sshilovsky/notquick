@@ -5,6 +5,7 @@
 #include <notmuch.h>
 #include "notmuch/threads.h"
 #include "disposable.h"
+#include "tags.h"
 
 namespace notmuch {
 
@@ -12,6 +13,8 @@ class Database : public QObject, protected Disposable
 {
     Q_OBJECT
     Q_INTERFACES(Disposable)
+private:
+    Tags* tags();
 public:
     explicit Database(QObject *parent = 0);
     virtual ~Database();
@@ -22,13 +25,11 @@ public:
 
     Q_INVOKABLE QObject *queryThreads(QString query_string = "*");
     Q_INVOKABLE QObject *findThread(QString thread_id);
-
-signals:
-
-public slots:
+    Q_PROPERTY(QObject* tags READ tags CONSTANT)
 
 private:
     notmuch_database_t* libnotmuch_database;
+    Tags m_tags;
 };
 
 class DatabaseProxy : public QObject {

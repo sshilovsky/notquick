@@ -3,12 +3,19 @@
 #include <QProcessEnvironment>
 #include "log.h"
 #include "thread.h"
+#include <QQmlEngine>
 
 namespace notmuch {
+
+Tags *Database::tags()
+{
+    return &m_tags;
+}
 
 Database::Database(QObject *parent) :
     QObject(parent)
 {
+    QQmlEngine::setObjectOwnership(&m_tags, QQmlEngine::CppOwnership);
 }
 
 Database::~Database()
@@ -33,6 +40,15 @@ bool Database::open(QString path, bool readonly)
         LOG_NOTMUCH_ERROR("notmuch_database_open");
         return false;
     }
+
+    notmuch_tags_t* libnotmuch_tags = notmuch_database_get_all_tags(libnotmuch_database);
+    if(!libnotmuch_tags) {
+        LOG_UNKNOWN_ERROR("notmuch_database_get_all_tags");
+    } else {
+        m_tags.load(libnotmuch_tags);
+        notmuch_tags_destroy(libnotmuch_tags);
+    }
+
     return true;
 }
 

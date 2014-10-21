@@ -33,6 +33,7 @@ public:
     Q_PROPERTY(QObject* tags READ tags CONSTANT)
 
     Q_INVOKABLE QString header(QString name) const;
+    Q_INVOKABLE bool dropTag(QString name);
 
 private:
     Message(notmuch_message_t* libnotmuch_message, QObject* parent);
@@ -40,6 +41,7 @@ private:
     Tags* m_tags;
 
     friend class Messages;
+    friend class Thread;
 };
 
 } // namespace notmuch

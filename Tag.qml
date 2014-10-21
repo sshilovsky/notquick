@@ -7,6 +7,15 @@ Rectangle {
     property string text
 
     color: "#b05050"
+    ColorAnimation {  // animation on tag drop error
+        id: error_animation
+        target: root
+        properties: "color"
+        from:  "red"
+        to: "#b05050"
+        duration: 500
+    }
+
     radius: 3
 
     Row {
@@ -30,6 +39,8 @@ Rectangle {
         }
 
         Rectangle {
+            id: close_btn
+            visible: tags.canDrop(root.text)
             width: 11
             height: 11
             radius: 3
@@ -49,7 +60,12 @@ Rectangle {
                 onEntered: parent.color = "#580000"
                 onExited: parent.color = "transparent"
 
-                onClicked: console.log("hello")
+
+                // TODO undo_animation
+                onClicked: if(!tags.drop(root.text)) {
+                               error_animation.restart()
+                               close_btn.visible = false
+                           }
 
             }
         }

@@ -16,11 +16,10 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
 
         RowLayout {
-            Text {
+            SelectableText {
                 text: message.from
                 Layout.fillWidth: true
-                Layout.maximumWidth: implicitWidth
-                elide: Text.ElideRight
+                Layout.maximumWidth: contentWidth
             }
 
             TagsView {
@@ -29,7 +28,7 @@ Item {
             }
         }
 
-        Text {
+        SelectableText {
             text: "id:" + message.id
         }
     }

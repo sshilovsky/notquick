@@ -14,7 +14,7 @@ Item {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
 
-        Text {
+        SelectableText {
             id: subject
             text: thread.subject
 
@@ -29,12 +29,12 @@ Item {
 
             spacing: 10
 
-            Text {
+            SelectableText {
                 id: date
                 text: thread.datetime
             }
 
-            Text {
+            SelectableText {
                 id: authors
                 text: thread.authors
 

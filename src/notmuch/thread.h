@@ -32,6 +32,8 @@ public:
 
     Q_PROPERTY(QObject* messages READ messages CONSTANT)
 
+    Q_INVOKABLE bool dropTag(QString name);
+
 
 private:
     Thread(notmuch_thread_t* libnotmuch_thread, QObject *parent);

@@ -1,6 +1,8 @@
 #include "message.h"
 #include <QFile>
 #include <QTextStream>
+#include <QDebug>
+#include "log.h"
 
 namespace notmuch {
 
@@ -9,6 +11,20 @@ QString Message::header(QString name) const
     if(!libnotmuch_message)
         return QString();
     return QString(notmuch_message_get_header(libnotmuch_message, name.toLocal8Bit().data())).simplified();
+}
+
+bool Message::dropTag(QString name)
+{
+    if(!libnotmuch_message) {
+        // TODO qdebug
+        return false;
+    }
+    ON_NOTMUCH_ERROR(notmuch_message_remove_tag(libnotmuch_message, name.toLocal8Bit().data())) {
+        LOG_NOTMUCH_ERROR("notmuch_message_remove_tag");
+        return false;
+    }
+    // TODO optionally drop tag from the thread
+    return true;
 }
 
 QString Message::subject() const

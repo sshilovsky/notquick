@@ -1,5 +1,8 @@
 #include "src/notmuch/thread.h"
 #include "tags.h"
+#include "log.h"
+#include "message.h"
+#include "tags.h"
 
 namespace notmuch {
 
@@ -24,6 +27,18 @@ void Thread::dispose()
 Thread::~Thread()
 {
     dispose();
+}
+
+bool Thread::dropTag(QString name)
+{
+    bool result = true;
+    foreach (QObject* o, messages()->children()) {
+        Message* message = qobject_cast<Message*>(o);
+        if(message) {
+            result = result && message->tags()->drop(name);
+        }
+    }
+    return result;
 }
 
 Thread::Thread(notmuch_thread_t *libnotmuch_thread, QObject *parent)

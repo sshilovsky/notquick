@@ -21,7 +21,7 @@ static QObject* databaseSingleton(QQmlEngine* engine, QJSEngine* scriptEngine) {
 int main(int argc, char *argv[])
 {
     notmuch::Database db;
-    db.openReadonly();
+    db.open();
     proxy = new notmuch::DatabaseProxy(&db); // owned by QML, so GC-ed later
 
     qmlRegisterSingletonType<notmuch::Database>("Notmuch", 1, 0, "NotmuchDatabase", databaseSingleton);

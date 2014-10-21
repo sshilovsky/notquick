@@ -3,6 +3,7 @@
 
 #include <QAbstractListModel>
 #include <notmuch.h>
+#include <QSet>
 
 namespace notmuch {
 
@@ -16,9 +17,14 @@ public:
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual QHash<int, QByteArray> roleNames() const;
 
+    Q_INVOKABLE bool canDrop(QString tag) const;
+    Q_INVOKABLE bool drop(QString tag);
+
 private:
     Tags(notmuch_tags_t* libnotmuch_tags, QObject *parent);
+    void load(notmuch_tags_t* libnotmuch_tags);
     QStringList tags;
+    QSet<QString> unique_list;
 
     friend class Database;
     friend class Thread;

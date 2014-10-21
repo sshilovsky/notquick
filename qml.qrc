@@ -12,5 +12,6 @@
         <file>MessageViewer.qml</file>
         <file>TagsView.qml</file>
         <file>images/typicons/tag_signed.png</file>
+        <file>SelectableText.qml</file>
     </qresource>
 </RCC>
