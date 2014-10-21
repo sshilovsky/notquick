@@ -13,5 +13,6 @@
         <file>TagsView.qml</file>
         <file>images/typicons/tag_signed.png</file>
         <file>SelectableText.qml</file>
+        <file>images/typicons/tag_attachment.png</file>
     </qresource>
 </RCC>

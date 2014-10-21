@@ -25,6 +25,7 @@ Rectangle {
 
         Image {
             source: root.text == "signed" ? "qrc:/images/typicons/tag_signed.png"
+                  : root.text == "attachment" ? "qrc:/images/typicons/tag_attachment.png"
                   : root.text.substring(0, 9) == "notmuch::" ? "qrc:/images/tag_notmuch.png"
                   : ""
         }
@@ -34,6 +35,7 @@ Rectangle {
             color: "white"
             font.pixelSize: 10
             text: root.text == "signed" ? ""
+                : root.text == "attachment" ? ""
                 : root.text.substring(0, 9) == "notmuch::" ? root.text.substring(9)
                 : root.text
         }
