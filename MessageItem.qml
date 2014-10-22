@@ -19,7 +19,8 @@ Item {
             SelectableText {
                 text: message.from
                 Layout.fillWidth: true
-                Layout.maximumWidth: contentWidth
+                Layout.maximumWidth: implicitWidth
+                elide: Text.ElideRight
             }
 
             TagsView {
@@ -30,6 +31,7 @@ Item {
 
         SelectableText {
             text: "id:" + message.id
+            elide: Text.ElideRight
         }
     }
 
