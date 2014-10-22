@@ -25,7 +25,7 @@ ApplicationWindow {
                 margins: 5
             }
 
-            queryString: "tag:important"
+            queryString: "tag:inbox"
 
             onRefresh: updateThreads()
             Component.onCompleted: updateThreads()
