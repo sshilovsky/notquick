@@ -27,21 +27,19 @@ bool Message::dropTag(QString name)
     return true;
 }
 
-QString Message::subject() const
-{
-    return header("subject");
-}
-
-QString Message::from() const
-{
-    return header("from");
-}
-
 QString Message::filename() const
 {
     if(!libnotmuch_message)
         return QString();
     return QString(notmuch_message_get_filename(libnotmuch_message));
+}
+
+QDateTime Message::date() const
+{
+    QDateTime datetime;
+    if(libnotmuch_message)
+        datetime.setTime_t(notmuch_message_get_date(libnotmuch_message));
+    return datetime;
 }
 
 QString Message::raw() const

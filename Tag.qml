@@ -46,7 +46,7 @@ Rectangle {
             width: 11
             height: 11
             radius: 3
-            color: "transparent"
+            color: ma.containsMouse ? "#580000" : " transparent"
 
             Image {
                 source: "qrc:/images/tag_close.png"
@@ -56,12 +56,9 @@ Rectangle {
             }
 
             MouseArea {
+                id: ma
                 anchors.fill: parent
-
                 hoverEnabled: true
-                onEntered: parent.color = "#580000"
-                onExited: parent.color = "transparent"
-
 
                 // TODO undo_animation
                 onClicked: if(!tags.drop(root.text)) {

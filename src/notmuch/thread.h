@@ -15,22 +15,28 @@ class Thread : public QObject, protected Disposable
     Q_OBJECT
     Q_INTERFACES(Disposable)
 private:
-    QString subject() const;
-    QString authors() const;
-    QDateTime datetime() const;
-    Tags* tags();
+    QString id() const;
     Messages *messages();
+    QString authors() const;
+    QString subject() const;
+    QDateTime newestDate() const;
+    Tags *tags();
 public:
     explicit Thread(QObject *parent = 0);
     virtual void dispose();
     virtual ~Thread();
 
-    Q_PROPERTY(QString subject READ subject CONSTANT)
+    Q_PROPERTY(QString id READ id CONSTANT)
+    //Q_PROPERTY(int totalMessages READ totalMessages CONSTANT)
+    Q_PROPERTY(QObject *messages READ messages CONSTANT)
+    // Q_PROPERTY(QObject* toplevelMessages READ toplevelMessages CONSTANT)
+    //Q_PROPERTY(int matchedMessages READ matchedMessages CONSTANT)
     Q_PROPERTY(QString authors READ authors CONSTANT)
-    Q_PROPERTY(QDateTime datetime READ datetime CONSTANT)
-    Q_PROPERTY(QObject* tags READ tags CONSTANT)
+    Q_PROPERTY(QString subject READ subject CONSTANT)
+    //Q_PROPERTY(QDateTime oldestDate READ oldestDate CONSTANT)
+    Q_PROPERTY(QDateTime newestDate READ newestDate CONSTANT) // TODO modifiable
+    Q_PROPERTY(QObject *tags READ tags CONSTANT)
 
-    Q_PROPERTY(QObject* messages READ messages CONSTANT)
 
     Q_INVOKABLE bool dropTag(QString name);
 

@@ -1,8 +1,9 @@
 import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick.Layouts 1.0
 
 Item {
-    z: parent.z + 1
+    property var object
+    property alias thread: root.object
     id: root
     implicitHeight: layout.implicitHeight + anchors.topMargin + anchors.bottomMargin
     //implicitWidth: layout.implicitWidth +anchors.leftMargin + anchors.rightMargin
@@ -14,32 +15,31 @@ Item {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
 
-        SelectableText {
-            id: subject
-            text: thread.subject
-
-            anchors.left: parent.left
-            anchors.right: parent.right
-            elide: Text.ElideRight
-        }
-
         RowLayout {
-            anchors.left: parent.left
-            anchors.right: parent.right
+            SelectableText {
+                id: subject
+                text: thread.subject
 
-            spacing: 10
+                elide: Text.ElideRight
+                Layout.fillWidth: true
+                clip: true
+            }
 
             SelectableText {
                 id: date
-                text: thread.datetime
+                text: thread.newestDate.toString()
             }
+        }
+
+        RowLayout {
+            spacing: 10
 
             SelectableText {
                 id: authors
                 text: thread.authors
 
-                Layout.fillWidth: true
                 elide: Text.ElideRight
+                Layout.fillWidth: true
                 Layout.maximumWidth: implicitWidth
             }
 
@@ -47,7 +47,6 @@ Item {
                 tags: thread.tags
                 Layout.fillWidth: true
             }
-
         }
     }
 }

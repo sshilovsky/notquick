@@ -38,7 +38,8 @@ QVariant Messages::data(const QModelIndex &index, int role) const
 QHash<int, QByteArray> Messages::roleNames() const
 {
     QHash<int,QByteArray> roles;
-    roles[0] = "message";
+    roles[0] = "object";
+    roles[1] = "message";
     return roles;
 }
 

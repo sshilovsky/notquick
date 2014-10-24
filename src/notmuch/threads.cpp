@@ -24,7 +24,8 @@ QVariant Threads::data(const QModelIndex &index, int role) const
 QHash<int, QByteArray> Threads::roleNames() const
 {
     QHash<int,QByteArray> roles;
-    roles[0] = "thread";
+    roles[0] = "object";
+    roles[1] = "thread";
     return roles;
 }
 

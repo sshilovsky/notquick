@@ -8,7 +8,7 @@ ApplicationWindow {
     title: qsTr("Notquick")
 
     Item {
-        id: tp
+        id: leftPanel
         anchors {
             top: parent.top
             bottom: parent.bottom
@@ -25,21 +25,22 @@ ApplicationWindow {
                 margins: 5
             }
 
-            queryString: "tag:inbox"
+            queryString: "list:notmuch"
 
             onRefresh: updateThreads()
             Component.onCompleted: updateThreads()
 
-            function updateThreads() {
-                tv.model = 0
-                tv.model = NotmuchDatabase.queryThreads(queryString)
-                tv.updateMessages()
+            function updateThreads() { // this is done to implement refreshing on 'Go' click
+                threadList.model = 0
+                threadList.model = NotmuchDatabase.queryThreads(queryString)
+                threadList.updateMessages()
             }
         }
 
-        ThreadsView {
-            id: tv
-            spacing: 2
+        NotquickList {
+            id: threadList
+            objectDelegate: ThreadItem {}
+
             anchors {
                 top: qi.bottom
                 bottom: parent.bottom
@@ -49,20 +50,19 @@ ApplicationWindow {
                 bottomMargin: 5
             }
 
-            onActivated: updateMessages()
-
-            function updateMessages() {
-                mv.model = 0
-                mv.model = selectedThread.messages
-            }
+            onAtYEndChanged: if (atYEnd && model) {
+                                 model.loadMore()
+                             }
         }
     }
 
-    MessagesView {
-        id: mv
-        spacing: 2
+    NotquickList {
+        id: messageList
+        objectDelegate: MessageItem {}
+        model: threadList.currentObject.messages
+
         anchors {
-            left: tp.right
+            left: leftPanel.right
             leftMargin: 5
             top: parent.top
             topMargin: 5
@@ -73,10 +73,10 @@ ApplicationWindow {
 
     MessageViewer {
         id: messageViewer
-        message: mv.selectedThread // selectedMessage actually
+        message: messageList.currentObject
         anchors {
-            top: mv.bottom
-            left: tp.right
+            top: messageList.bottom
+            left: leftPanel.right
             right: parent.right
             bottom: parent.bottom
             margins: 5

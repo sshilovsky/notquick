@@ -51,6 +51,13 @@ Thread::Thread(notmuch_thread_t *libnotmuch_thread, QObject *parent)
 
 }
 
+QString Thread::id() const
+{
+    if(!libnotmuch_thread)
+        return QString();
+    return QString(notmuch_thread_get_thread_id(libnotmuch_thread));
+}
+
 QString Thread::subject() const
 {
     if(!libnotmuch_thread)
@@ -58,19 +65,19 @@ QString Thread::subject() const
     return QString(notmuch_thread_get_subject(libnotmuch_thread)).simplified();
 }
 
+QDateTime Thread::newestDate() const
+{
+    QDateTime datetime;
+    if(libnotmuch_thread)
+        datetime.setTime_t(notmuch_thread_get_newest_date(libnotmuch_thread));
+    return datetime;
+}
+
 QString Thread::authors() const
 {
     if(!libnotmuch_thread)
         return QString();
     return QString(notmuch_thread_get_authors(libnotmuch_thread)).simplified();
-}
-
-QDateTime Thread::datetime() const
-{
-    // TODO dont forget about simplifed
-    if(!libnotmuch_thread)
-        return QDateTime();
-    return QDateTime(QDate(2014,12,31), QTime(20,10));
 }
 
 Tags *Thread::tags()
