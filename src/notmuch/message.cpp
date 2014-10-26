@@ -3,6 +3,7 @@
 #include <QTextStream>
 #include <QDebug>
 #include "log.h"
+#include "mime/fileentity.h"
 
 namespace notmuch {
 
@@ -27,6 +28,11 @@ bool Message::dropTag(QString name)
     return true;
 }
 
+QObject *Message::createMimeEntity() const
+{
+    return new mime::FileEntity(filename(), 0);
+}
+
 QString Message::filename() const
 {
     if(!libnotmuch_message)
@@ -40,16 +46,6 @@ QDateTime Message::date() const
     if(libnotmuch_message)
         datetime.setTime_t(notmuch_message_get_date(libnotmuch_message));
     return datetime;
-}
-
-QString Message::raw() const
-{
-    QFile f(filename());
-    if(!f.open(QFile::ReadOnly|QFile::Text)) {
-        // TODO error message
-    }
-    QTextStream in(&f);
-    return filename() + "\n\n" + in.readAll();
 }
 
 QString Message::id() const

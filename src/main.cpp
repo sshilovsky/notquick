@@ -5,10 +5,10 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "src/notmuch/thread.h"
-#include "src/notmuch/threads.h"
-#include "src/notmuch/database.h"
-#include "src/notmuch/tags.h"
+
+#include "notmuch/database.h"
+#include "mime/fileentity.h"
+#include "mime/mytest.h"
 
 notmuch::DatabaseProxy *proxy = 0;
 
@@ -24,12 +24,13 @@ int main(int argc, char *argv[])
     db.open();
     proxy = new notmuch::DatabaseProxy(&db); // owned by QML, so GC-ed later
 
-    qmlRegisterSingletonType<notmuch::Database>("Notmuch", 1, 0, "NotmuchDatabase", databaseSingleton);
-    //qmlRegisterType<notmuch::Threads>("Notmuch", 1, 0, "NotmuchThreads");
-    //qmlRegisterType<notmuch::Tags>("Notmuch", 1, 0, "NotmuchTags");
+    qmlRegisterSingletonType<notmuch::Database>("Notquick", 1, 0, "NotmuchDatabase", databaseSingleton);
+    qmlRegisterType<mime::FileEntity>("Notquick", 1, 0, "MimeFileEntity");
 
-    QApplication app(argc, argv);
-    QQmlApplicationEngine engine;
+    qmlRegisterType<MyTest>("Notquick", 1, 0, "NQTest");
+
+    QApplication app(argc, argv); // TODO maybe switch to QGuiApplication
+    QQmlApplicationEngine engine; // TODO maybe switch to QQmlEngine
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 

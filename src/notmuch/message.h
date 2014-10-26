@@ -17,7 +17,6 @@ private:
     QString id() const;
     QString filename() const;
     QDateTime date() const;
-    QString raw() const;
     Tags* tags();
 
 public:
@@ -38,9 +37,9 @@ public:
     Q_PROPERTY(QString from READ from CONSTANT)*/
     Q_PROPERTY(QObject* tags READ tags CONSTANT)
 
-    Q_PROPERTY(QString raw READ raw CONSTANT)
-
     Q_INVOKABLE bool dropTag(QString name);
+
+    Q_INVOKABLE QObject* createMimeEntity() const; // TODO call MimeEntity const. directly from qml
 
 private:
     Message(notmuch_message_t* libnotmuch_message, QObject* parent);

@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import Notmuch 1.0
+import Notquick 1.0
 import QtQuick.Controls 1.0
 
 ApplicationWindow {
@@ -33,7 +33,6 @@ ApplicationWindow {
             function updateThreads() { // this is done to implement refreshing on 'Go' click
                 threadList.model = 0
                 threadList.model = NotmuchDatabase.queryThreads(queryString)
-                threadList.updateMessages()
             }
         }
 

@@ -11,7 +11,9 @@ SOURCES += \
     src/disposable.cpp \
     src/notmuch/tags.cpp \
     src/notmuch/messages.cpp \
-    src/notmuch/message.cpp
+    src/notmuch/message.cpp \
+    src/mime/fileentity.cpp \
+    src/mime/mytest.cpp
 
 RESOURCES += qml.qrc
 
@@ -23,10 +25,12 @@ HEADERS += \
     src/disposable.h \
     src/notmuch/tags.h \
     src/notmuch/messages.h \
-    src/notmuch/message.h
+    src/notmuch/message.h \
+    src/mime/fileentity.h \
+    src/mime/mytest.h
 
 INCLUDEPATH += src/
 
-LIBS += -lnotmuch
+LIBS += -lnotmuch -lmimetic
 
 OTHER_FILES +=
