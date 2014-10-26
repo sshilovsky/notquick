@@ -18,7 +18,7 @@ Item {
         RowLayout {
             SelectableText {
                 id: subject
-                //text: thread.subject
+                text: message.header("subject")
 
                 elide: Text.ElideRight
                 Layout.fillWidth: true
