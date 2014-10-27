@@ -1,7 +1,7 @@
 TEMPLATE = app
 
 QT += qml widgets
-CONFIG += c++11
+CONFIG += link_pkgconfig c++11 no_keywords
 
 SOURCES += \
     src/notmuch/thread.cpp \
@@ -12,8 +12,7 @@ SOURCES += \
     src/notmuch/tags.cpp \
     src/notmuch/messages.cpp \
     src/notmuch/message.cpp \
-    src/mime/fileentity.cpp \
-    src/mime/mytest.cpp
+    src/mime/fileentity.cpp
 
 RESOURCES += qml.qrc
 
@@ -26,11 +25,12 @@ HEADERS += \
     src/notmuch/tags.h \
     src/notmuch/messages.h \
     src/notmuch/message.h \
-    src/mime/fileentity.h \
-    src/mime/mytest.h
+    src/mime/fileentity.h
 
 INCLUDEPATH += src/
 
-LIBS += -lnotmuch -lmimetic
+PKGCONFIG += gmime-2.6
+
+LIBS += -lnotmuch
 
 OTHER_FILES +=

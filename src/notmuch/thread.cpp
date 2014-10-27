@@ -32,7 +32,7 @@ Thread::~Thread()
 bool Thread::dropTag(QString name)
 {
     bool result = true;
-    foreach (QObject* o, messages()->children()) {
+    Q_FOREACH(QObject* o, messages()->children()) {
         Message* message = qobject_cast<Message*>(o);
         if(message) {
             result = result && message->tags()->drop(name);

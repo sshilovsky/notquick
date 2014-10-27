@@ -27,11 +27,9 @@ public:
     virtual ~Threads();
 
     void dispose();
-signals:
 
-public slots:
-    void loadMore(int more = 50);
-    void loadAll();
+    Q_INVOKABLE void loadMore(int more = 50);
+    Q_INVOKABLE void loadAll();
 
 private:
     Threads(notmuch_threads_t* libnotmuch_threads, QObject* parent);

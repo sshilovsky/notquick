@@ -1,9 +1,11 @@
 #ifndef MAIL_ENTITY_H
 #define MAIL_ENTITY_H
 
+#include <glib.h>
+#include <gmime/gmime.h>
+
 #include <QObject>
 #include <QFile>
-#include <mimetic/mimeentity.h>
 
 namespace mime {
 
@@ -18,7 +20,12 @@ public:
     virtual ~FileEntity();
 
 private:
-    mimetic::MimeEntity* mimeticEntity;
+    QFile file;
+    uchar* file_memory;
+    GMimeStream* gmime_stream;
+    GMimeMessage* gmime_message;
+    GMimePart* gmime_part;
+
 
 
 

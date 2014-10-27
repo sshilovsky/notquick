@@ -27,4 +27,8 @@ static thread_local notmuch_status_t notmuch_status; \
         qWarning() << (msg) << ": Unknown error"; \
     } while(0)
 
+#define LOG_GMIME_ERROR_NULL(msg) do { \
+        qCritical() << (msg) << msg << ": error"; \
+    } while(0)
+
 #endif // LOG_H
